@@ -41,6 +41,8 @@ type XmlDocument struct {
 
 func NodeValue(key XmlName, val any) string {
 	switch t := val.(type) {
+	case nil:
+		return ""
 	case string:
 		return t
 	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
@@ -57,10 +59,6 @@ func NodeValue(key XmlName, val any) string {
 			r += NodeValue(k, v)
 		}
 		return r
-		//if len(r) == 0 {
-		//	return fmt.Sprintf("<%s />", key)
-		//}
-		//return fmt.Sprintf("<%s>%s</%s>", key, r, key)
 	case []XmlNode:
 		r := ""
 		for _, v := range t {
